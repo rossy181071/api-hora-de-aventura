@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit'
-import litLogo from './assets/lit.svg'
-import viteLogo from '/vite.svg'
+import { Child3Element } from './child-3-element'
+import { CharactrGetterElement3 } from './character-getter-element-3'
 
 /**
  * An example element.
@@ -12,46 +12,92 @@ export class MyElement extends LitElement {
   static get properties() {
     return {
       /**
-       * Copy for the read the docs hint.
-       */
-      docsHint: { type: String },
-
-      /**
-       * The number of times the button has been clicked.
+       * The number of times the button has clicked.
        */
       count: { type: Number },
+      /**
+       * The current charaters page number.
+       */
+      page: { type: Number },
+      /**
+       * The list of characters as an array
+       */
+      characters: { type: Array},
     }
   }
 
   constructor() {
     super()
-    this.docsHint = 'Click on the Vite and Lit logos to learn more'
     this.count = 0
+    this.page = 1
+    this.characters = []
   }
+
+
+  myEvent2Handler() {
+    this.count ++
+  }
+
+  update(changedProperties) {
+    if (changedProperties.has ("page"))
+      thia.shadowRoot.querySelector("character-getter-element-3").getCharactersPage (this.page)
+  }
+
+  newCharactersPageEventHandlerr (e) {
+    this.characters = e.detal.data
+  }
+
+  firstPage () {
+    this.page = 1
+  }
+
+  previousPage () {
+    if (this.page > 1)
+      this.page--
+    else
+    this.page = 97
+  }
+
+  nextPage () {
+    if (this.page < 97)
+      this.page ++
+    else
+    this.page = 1
+  }
+  lastPage () {
+    this.page = 97
+  }
+
+
 
   render() {
     return html`
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src=${viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://lit.dev" target="_blank">
-          <img src=${litLogo} class="logo lit" alt="Lit logo" />
-        </a>
-      </div>
-      <slot></slot>
       <div class="card">
-        <button @click=${this._onClick} part="button">
+        <h1>
           count is ${this.count}
-        </button>
-      </div>
-      <p class="read-the-docs">${this.docsHint}</p>
-    `
+        </h1>
+        <h1>
+          Pagina ${this.page}
+        </h1>
+        <button @click="${this.firstPage}">Inicio</button>
+        <button @click="${this.previousPage}">Anterior</button>
+        <button @click="${this.nextPage}">Siguiente</button>
+        <button @click="${this.lastPage}">Final</button>
+        <childd-3-element @my-event-2="${this.myEvent2Handler}"></childd-3-element>
+        <character-getter-element-3 @new-character-event="${this.newCharactersPageEventHandler}"></character-getter-element-3>
+        <h1 id="character-name"></h1>
+        <img id= "character-img">
+        <div id="characters-list">${this.characters.length < 1 ? '' : this.characters.map(char => html`<div
+          class="character" id="${char._id}">
+        <h1>${char.name}</h1>
+        <p>${char.description}</p>
+        <img src="${char.image}">
+        </div>`) }
+        </div>
+        </div>
+      `
   }
 
-  _onClick() {
-    this.count++
-  }
 
   static get styles() {
     return css`
