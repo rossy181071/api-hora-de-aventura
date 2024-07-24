@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { Child3Element } from './child-3-element'
-import { CharactrGetterElement3 } from './character-getter-element-3'
+import { CharacterGetterElement3 } from './character-getter-element-3'
 
 /**
  * An example element.
@@ -12,11 +12,11 @@ export class MyElement extends LitElement {
   static get properties() {
     return {
       /**
-       * The number of times the button has clicked.
+       * The number of times the button has been clicked.
        */
       count: { type: Number },
       /**
-       * The current charaters page number.
+       * The current characters page number.
        */
       page: { type: Number },
       /**
@@ -38,13 +38,13 @@ export class MyElement extends LitElement {
     this.count ++
   }
 
-  update(changedProperties) {
+  updated(changedProperties) {
     if (changedProperties.has ("page"))
-      thia.shadowRoot.querySelector("character-getter-element-3").getCharactersPage (this.page)
+      this.shadowRoot.querySelector("character-getter-element-3").getCharactersPage (this.page)
   }
 
-  newCharactersPageEventHandlerr (e) {
-    this.characters = e.detal.data
+  newCharactersPageEventHandler (e) {
+    this.characters = e.detail.data
   }
 
   firstPage () {
@@ -83,7 +83,7 @@ export class MyElement extends LitElement {
         <button @click="${this.previousPage}">Anterior</button>
         <button @click="${this.nextPage}">Siguiente</button>
         <button @click="${this.lastPage}">Final</button>
-        <childd-3-element @my-event-2="${this.myEvent2Handler}"></childd-3-element>
+        <child-3-element @my-event-2="${this.myEvent2Handler}"></child-3-element>
         <character-getter-element-3 @new-character-event="${this.newCharactersPageEventHandler}"></character-getter-element-3>
         <h1 id="character-name"></h1>
         <img id= "character-img">
@@ -169,6 +169,9 @@ export class MyElement extends LitElement {
         button {
           background-color: #f9f9f9;
         }
+      }
+      img {
+        width: 50vw;
       }
     `
   }
