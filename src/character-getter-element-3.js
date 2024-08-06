@@ -14,7 +14,7 @@ export class CharacterGetterElement3 extends LitElement {
   }
 
   getCharactersPage(page) {
-    fetch(`https://adventure-time-api.herokuapp.com/api/v1/characters?page=${page}`)
+    fetch(` https://adventure-time-api.herokuapp.com/api/v1/characters?page=${page}`)
     .then(response => response.json())
     .then(jsonData => this.dispatchEvent(new CustomEvent('new-character-event', {
       detail: jsonData
